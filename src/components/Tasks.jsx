@@ -35,6 +35,18 @@ class Tasks extends Component {
     });
   };
 
+  handleDelete = (taskToDelete) => {
+    console.log(taskToDelete)
+    // tasks contient ['task 1', 'task 2']
+    // j'ai clique sur la 2eme => singleTask vaut 'task 2'
+
+    const { tasks } = this.state;
+    const newTasks = tasks.filter((task) => task !== taskToDelete);
+    this.setState({
+      tasks: newTasks,
+    });
+  }
+
   render() {
     const { taskName, tasks } = this.state;
     return (
@@ -56,9 +68,14 @@ class Tasks extends Component {
         </form>
         <div>
           <h3>Tasks list</h3>
-          <ul>
+          <ul className="TasksList">
             {tasks.map((singleTask) => (
-              <li key={singleTask}>{singleTask}</li>
+              <li className="TaskItem" key={singleTask}>
+                <span className="TaskItem-name">{singleTask}</span>
+                <button type="button" className="TaskItem-trash" onClick={() => this.handleDelete(singleTask)}>
+                  <span className="icon-bin" />
+                </button>
+              </li>
             ))}
           </ul>
         </div>

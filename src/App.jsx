@@ -1,6 +1,7 @@
 import React from 'react';
 import Tasks from './components/Tasks';
 import './App.css';
+import './icomoon/style.css';
 
 function App() {
   return (

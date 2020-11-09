@@ -1,3 +1,16 @@
 .Tasks {
   display: flex;
 }
+
+.TasksList {
+  width: 100%;
+}
+
+.TaskItem {
+  display: flex;
+  width: 100%;
+}
+
+.TaskItem-name {
+  flex-grow: 1;
+}
