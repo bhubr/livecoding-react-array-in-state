@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './Tasks.css';
 
 class Tasks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskName: 'new task',
+      taskName: '',
       tasks: [], // stocker les taches sous forme de strings ["Task 1", "Task 2"]
     };
   }
@@ -18,15 +18,22 @@ class Tasks extends Component {
     this.setState({
       taskName: newValue,
     });
-  }
+  };
 
   handleSubmit = (event) => {
     // empecher de sortir de la page
     event.preventDefault();
     // recuperer la valeur de l'input depuis le state
-    const { taskName } = this.state;
-    // stocker cette nouvelle tache
-  }
+    const { taskName, tasks } = this.state;
+    // stocker cette nouvelle tache dans un nouveau tableau
+    // this.state.tasks.push(taskName); // BAD (mute le tableau)
+    const newTasks = [...tasks, taskName];
+    // remplacer l'ancien tableau par le nouveau dans le state
+    this.setState({
+      tasks: newTasks,
+      taskName: '',
+    });
+  };
 
   render() {
     const { taskName, tasks } = this.state;
@@ -37,7 +44,12 @@ class Tasks extends Component {
 
           <label htmlFor="taskName">
             Task name
-            <input id="taskName" type="text" value={taskName} onChange={this.handleChange} />
+            <input
+              id="taskName"
+              type="text"
+              value={taskName}
+              onChange={this.handleChange}
+            />
           </label>
 
           <button type="submit">Add</button>
@@ -45,15 +57,13 @@ class Tasks extends Component {
         <div>
           <h3>Tasks list</h3>
           <ul>
-            {
-              tasks.map((singleTask) => (
-                <li key={singleTask}>{singleTask}</li>
-              ))
-            }
+            {tasks.map((singleTask) => (
+              <li key={singleTask}>{singleTask}</li>
+            ))}
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }
 
