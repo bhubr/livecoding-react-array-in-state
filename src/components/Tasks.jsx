@@ -6,6 +6,7 @@ class Tasks extends Component {
     super(props);
     this.state = {
       taskName: 'new task',
+      tasks: [], // stocker les taches sous forme de strings ["Task 1", "Task 2"]
     };
   }
 
@@ -19,11 +20,19 @@ class Tasks extends Component {
     });
   }
 
-  render() {
+  handleSubmit = (event) => {
+    // empecher de sortir de la page
+    event.preventDefault();
+    // recuperer la valeur de l'input depuis le state
     const { taskName } = this.state;
+    // stocker cette nouvelle tache
+  }
+
+  render() {
+    const { taskName, tasks } = this.state;
     return (
       <div className="Tasks">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <h3>Add a new task</h3>
 
           <label htmlFor="taskName">
@@ -33,11 +42,16 @@ class Tasks extends Component {
 
           <button type="submit">Add</button>
         </form>
-        <ul>
-          <li>Task 1</li>
-          <li>Task 2</li>
-          <li>Task 3</li>
-        </ul>
+        <div>
+          <h3>Tasks list</h3>
+          <ul>
+            {
+              tasks.map((singleTask) => (
+                <li key={singleTask}>{singleTask}</li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     )
   }
